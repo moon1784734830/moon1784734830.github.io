@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Fira+Code:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"moon1784734830.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat","show_result":true},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="📚 算法学习之路欢迎来到我的算法学习专栏！这里记录了我在算法与数据结构学习过程中的心得体会、题目解析和代码实现。  🎯 学习目标 ✅ 掌握常见数据结构 ✅ 熟练运用算法思想 ✅ 刷完 LeetCode 热题 100 ✅ 准备技术面试   📖 学习路线第一阶段：基础数据结构 数组基础 - 双指针、滑动窗口、二分查找 链表基础 - 反转、快慢指针、合并 栈和队列 - 括号匹配、单调栈 哈希表 -">
+<meta property="og:type" content="website">
+<meta property="og:title" content="算法学习">
+<meta property="og:url" content="https://moon1784734830.github.io/algorithm/index.html">
+<meta property="og:site_name" content="关注塔菲谢谢喵">
+<meta property="og:description" content="📚 算法学习之路欢迎来到我的算法学习专栏！这里记录了我在算法与数据结构学习过程中的心得体会、题目解析和代码实现。  🎯 学习目标 ✅ 掌握常见数据结构 ✅ 熟练运用算法思想 ✅ 刷完 LeetCode 热题 100 ✅ 准备技术面试   📖 学习路线第一阶段：基础数据结构 数组基础 - 双指针、滑动窗口、二分查找 链表基础 - 反转、快慢指针、合并 栈和队列 - 括号匹配、单调栈 哈希表 -">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-26T06:45:17.000Z">
+<meta property="article:modified_time" content="2025-12-26T06:46:24.908Z">
+<meta property="article:author" content="眚神">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://moon1784734830.github.io/algorithm/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"https://moon1784734830.github.io/algorithm/index.html","path":"algorithm/index.html","title":"算法学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>算法学习 | 关注塔菲谢谢喵
+</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">关注塔菲谢谢喵</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到kh的博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-算法学习"><a href="/algorithm/" rel="section"><i class="fa fa-code fa-fw"></i>算法学习</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-folder fa-fw"></i>分类</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9A-%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">📚 算法学习之路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AF-%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">🎯 学习目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%96-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF"><span class="nav-number">3.</span> <span class="nav-text">📖 学习路线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">第一阶段：基础数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%A0%91%E4%B8%8E%E5%9B%BE"><span class="nav-number">3.2.</span> <span class="nav-text">第二阶段：树与图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%9A%E9%AB%98%E7%BA%A7%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">第三阶段：高级算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%8A-%E5%AD%A6%E4%B9%A0%E8%BF%9B%E5%BA%A6"><span class="nav-number">4.</span> <span class="nav-text">📊 学习进度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8F%86-%E5%88%B7%E9%A2%98%E7%BB%9F%E8%AE%A1"><span class="nav-number">5.</span> <span class="nav-text">🏆 刷题统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9D-%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0"><span class="nav-number">6.</span> <span class="nav-text">📝 最新文章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E9%93%BE%E8%A1%A8%E5%9F%BA%E7%A1%80"><span class="nav-number">6.1.</span> <span class="nav-text">算法学习 - 链表基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%95%B0%E7%BB%84%E5%9F%BA%E7%A1%80"><span class="nav-number">6.2.</span> <span class="nav-text">算法学习 - 数组基础</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%97-%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="nav-number">7.</span> <span class="nav-text">🔗 相关资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%A1-%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">💡 学习方法</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="眚神"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">眚神</p>
+  <div class="site-description" itemprop="description">用体温朗读风声</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/moon1784734830" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;moon1784734830" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">算法学习
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h2 id="📚-算法学习之路"><a href="#📚-算法学习之路" class="headerlink" title="📚 算法学习之路"></a>📚 算法学习之路</h2><p>欢迎来到我的算法学习专栏！这里记录了我在算法与数据结构学习过程中的心得体会、题目解析和代码实现。</p>
+<hr>
+<h2 id="🎯-学习目标"><a href="#🎯-学习目标" class="headerlink" title="🎯 学习目标"></a>🎯 学习目标</h2><ul>
+<li>✅ 掌握常见数据结构</li>
+<li>✅ 熟练运用算法思想</li>
+<li>✅ 刷完 LeetCode 热题 100</li>
+<li>✅ 准备技术面试</li>
+</ul>
+<hr>
+<h2 id="📖-学习路线"><a href="#📖-学习路线" class="headerlink" title="📖 学习路线"></a>📖 学习路线</h2><h3 id="第一阶段：基础数据结构"><a href="#第一阶段：基础数据结构" class="headerlink" title="第一阶段：基础数据结构"></a>第一阶段：基础数据结构</h3><ol>
+<li><a href="/2025/12/26/algorithm-array-basics/">数组基础</a> - 双指针、滑动窗口、二分查找</li>
+<li><a href="/2025/12/26/algorithm-linkedlist-basics/">链表基础</a> - 反转、快慢指针、合并</li>
+<li>栈和队列 - 括号匹配、单调栈</li>
+<li>哈希表 - 两数之和、字母异位词</li>
+<li>字符串 - KMP、双指针</li>
+</ol>
+<h3 id="第二阶段：树与图"><a href="#第二阶段：树与图" class="headerlink" title="第二阶段：树与图"></a>第二阶段：树与图</h3><ol start="6">
+<li>二叉树 - 遍历、递归、层序</li>
+<li>二叉搜索树 - 验证、插入、删除</li>
+<li>图论基础 - DFS、BFS、拓扑排序</li>
+<li>并查集 - 连通性问题</li>
+</ol>
+<h3 id="第三阶段：高级算法"><a href="#第三阶段：高级算法" class="headerlink" title="第三阶段：高级算法"></a>第三阶段：高级算法</h3><ol start="10">
+<li>动态规划 - 背包、子序列、路径</li>
+<li>贪心算法 - 区间问题、跳跃游戏</li>
+<li>回溯算法 - 全排列、组合、N皇后</li>
+<li>位运算 - 常见技巧</li>
+</ol>
+<hr>
+<h2 id="📊-学习进度"><a href="#📊-学习进度" class="headerlink" title="📊 学习进度"></a>📊 学习进度</h2><table>
+<thead>
+<tr>
+<th>专题</th>
+<th>进度</th>
+<th>题目数</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数组</td>
+<td>█████░░░░░ 50%</td>
+<td>10&#x2F;20</td>
+<td>🔄 进行中</td>
+</tr>
+<tr>
+<td>链表</td>
+<td>███░░░░░░░ 30%</td>
+<td>6&#x2F;20</td>
+<td>🔄 进行中</td>
+</tr>
+<tr>
+<td>栈和队列</td>
+<td>░░░░░░░░░░ 0%</td>
+<td>0&#x2F;15</td>
+<td>⏳ 未开始</td>
+</tr>
+<tr>
+<td>树</td>
+<td>░░░░░░░░░░ 0%</td>
+<td>0&#x2F;30</td>
+<td>⏳ 未开始</td>
+</tr>
+<tr>
+<td>动态规划</td>
+<td>░░░░░░░░░░ 0%</td>
+<td>0&#x2F;25</td>
+<td>⏳ 未开始</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="🏆-刷题统计"><a href="#🏆-刷题统计" class="headerlink" title="🏆 刷题统计"></a>🏆 刷题统计</h2><ul>
+<li><strong>总题数</strong>: 16 &#x2F; 200</li>
+<li><strong>简单</strong>: 12</li>
+<li><strong>中等</strong>: 4</li>
+<li><strong>困难</strong>: 0</li>
+<li><strong>连续打卡</strong>: 3 天</li>
+</ul>
+<hr>
+<h2 id="📝-最新文章"><a href="#📝-最新文章" class="headerlink" title="📝 最新文章"></a>📝 最新文章</h2><div style="padding: 10px; background: #f5f5f5; border-radius: 5px;">
+
+<h3 id="算法学习-链表基础"><a href="#算法学习-链表基础" class="headerlink" title="算法学习 - 链表基础"></a><a href="/2025/12/26/algorithm-linkedlist-basics/">算法学习 - 链表基础</a></h3><p><em>2025-12-26</em> - 链表的基础知识和常见题型</p>
+<h3 id="算法学习-数组基础"><a href="#算法学习-数组基础" class="headerlink" title="算法学习 - 数组基础"></a><a href="/2025/12/26/algorithm-array-basics/">算法学习 - 数组基础</a></h3><p><em>2025-12-26</em> - 数组的基础知识和常见题型</p>
+</div>
+
+<hr>
+<h2 id="🔗-相关资源"><a href="#🔗-相关资源" class="headerlink" title="🔗 相关资源"></a>🔗 相关资源</h2><ul>
+<li>📚 <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">查看所有算法文章</a></li>
+<li>🏷️ <a href="/tags/">按标签浏览</a></li>
+<li>💻 <a target="_blank" rel="noopener" href="https://leetcode.cn/">我的 LeetCode 主页</a></li>
+<li>📖 <a target="_blank" rel="noopener" href="https://programmercarl.com/">代码随想录</a></li>
+<li>🎥 <a target="_blank" rel="noopener" href="https://visualgo.net/">算法可视化工具</a></li>
+</ul>
+<hr>
+<h2 id="💡-学习方法"><a href="#💡-学习方法" class="headerlink" title="💡 学习方法"></a>💡 学习方法</h2><ol>
+<li><strong>理解原理</strong> - 先理解算法思想</li>
+<li><strong>手写代码</strong> - 不看答案独立实现</li>
+<li><strong>总结归纳</strong> - 记录解题思路和模板</li>
+<li><strong>定期复习</strong> - 温故而知新</li>
+<li><strong>举一反三</strong> - 寻找相似题目练习</li>
+</ol>
+<hr>
+<blockquote>
+<p>📅 最后更新：2025-12-26<br>💪 坚持就是胜利！每天进步一点点。</p>
+</blockquote>
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">眚神</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
