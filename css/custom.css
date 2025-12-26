@@ -1,23 +1,26 @@
-.post {
-  margin-bottom: 60px !important;
-  padding-bottom: 40px !important;
-  border-bottom: 2px solid #e0e0e0;
-}
-.post:last-child {
-  border-bottom: none;
-}
 .posts-expand .post {
-  background: #fff;
-  padding: 30px;
-  margin-bottom: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  border-bottom: 1px solid #f0f0f0;
-  transition: all 0.3s ease;
+  background: #2a2a2a !important;
+  padding: 35px 40px !important;
+  margin-bottom: 30px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important;
+  border: 1px solid #3a3a3a !important;
+  position: relative;
+  transition: all 0.3s ease !important;
 }
 .posts-expand .post:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-  transform: translateY(-2px);
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6) !important;
+  border-color: #4a4a4a !important;
+}
+.posts-expand .post::after {
+  display: none !important;
+}
+.main-inner {
+  background: #1a1a1a !important;
+}
+.content-wrap {
+  background: #1a1a1a !important;
 }
 .post-toc a {
   text-decoration: none !important;
@@ -43,27 +46,58 @@
 .post-title {
   margin-bottom: 20px;
   font-weight: 600;
+  color: #f0f0f0 !important;
+}
+.post-title a {
+  color: #f0f0f0 !important;
+}
+.post-title a:hover {
+  color: #fff !important;
 }
 .post-meta {
   margin: 15px 0;
   padding: 10px 0;
-  border-bottom: 1px dashed #e0e0e0;
+  border-bottom: 1px dashed #404040;
+  color: #999 !important;
+}
+.post-meta .post-meta-item {
+  color: #999 !important;
+}
+.post-meta a {
+  color: #aaa !important;
+}
+.post-meta a:hover {
+  color: #ddd !important;
 }
 .post-button {
-  margin-top: 20px;
-  text-align: center;
+  margin-top: 30px;
+  text-align: right;
 }
-.post-button a {
-  padding: 8px 24px;
-  background: #06c;
-  color: #fff !important;
-  border-radius: 4px;
+.post-button .btn {
+  border: 1px solid #555 !important;
+  background: transparent !important;
+  color: #bbb !important;
+  padding: 0 20px !important;
+  font-size: 14px !important;
+  line-height: 2 !important;
   text-decoration: none !important;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease-in-out !important;
+  display: inline-block !important;
+  border-radius: 4px !important;
 }
-.post-button a:hover {
-  background: #0052a3;
-  transform: scale(1.05);
+.post-button .btn:hover {
+  border-color: #777 !important;
+  color: #fff !important;
+  background: rgba(255,255,255,0.05) !important;
+}
+.post-button .btn::after {
+  content: ' →';
+  font-size: 14px;
+  margin-left: 5px;
+  transition: margin-left 0.2s ease;
+}
+.post-button .btn:hover::after {
+  margin-left: 10px;
 }
 .highlight {
   margin: 20px 0;
@@ -109,18 +143,68 @@ a:hover {
   border-bottom: none !important;
 }
 @media (prefers-color-scheme: dark) {
-  .posts-expand .post {
-    background: #1a1a1a;
-    border-bottom: 1px solid #333;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-  .posts-expand .post:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-  }
-  .post {
-    border-bottom: 2px solid #333;
+  .posts-expand .post::after {
+    background: linear-gradient(to right, transparent, #333 20%, #333 80%, transparent);
   }
   .post-meta {
     border-bottom: 1px dashed #444;
   }
+  .post-button .btn {
+    border-color: #444 !important;
+    color: #999 !important;
+  }
+  .post-button .btn:hover {
+    border-color: #666 !important;
+    color: #fff !important;
+  }
+}
+.post-body {
+  color: #ddd !important;
+}
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #f0f0f0 !important;
+}
+.post-body p {
+  margin: 20px 0;
+  line-height: 1.8;
+  color: #ccc !important;
+}
+.post-body ul,
+.post-body ol {
+  margin: 20px 0;
+  color: #ccc !important;
+}
+.post-body blockquote {
+  margin: 25px 0;
+  padding: 15px 20px;
+  border-left: 4px solid #555;
+  background: rgba(0,0,0,0.2);
+  color: #bbb !important;
+}
+.post-body code {
+  background: #1a1a1a !important;
+  color: #e96900 !important;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.post-header {
+  position: relative;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+.post-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, #666, transparent);
+}
+.post-body .post-description {
+  color: #aaa !important;
 }
