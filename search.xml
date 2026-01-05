@@ -38,7 +38,7 @@ O(n)
 
 
 常见题型1. 双指针技巧例题：删除重复元素LeetCode 26. 删除排序数组中的重复项
-def removeDuplicates(nums):    &quot;&quot;&quot;    给定排序数组，原地删除重复元素    &quot;&quot;&quot;    if not nums:        return 0        # 慢指针指向不重复元素的位置    slow = 0        # 快指针遍历数组    for fast in range(1, len(nums)):        if nums[fast] != nums[slow]:            slow += 1            nums[slow] = nums[fast]        return slow + 1# 测试nums = [1, 1, 2, 2, 3]length = removeDuplicates(nums)print(nums[:length])  def removeDuplicates(nums):    &quot;&quot;&quot;    给定排序数组，原地删除重复元素    &quot;&quot;&quot;    if not nums:        return 0        # 慢指针指向不重复元素的位置    slow = 0        # 快指针遍历数组    for fast in range(1, len(nums)):        if nums[fast] != nums[slow]:            slow += 1            nums[slow] = nums[fast]        return slow + 1# 测试nums = [1, 1, 2, 2, 3]length = removeDuplicates(nums)print(nums[:length])  # [1, 2, 3]
+def removeDuplicates(nums):    &quot;&quot;&quot;    给定排序数组，原地删除重复元素    &quot;&quot;&quot;    if not nums:        return 0        # 慢指针指向不重复元素的位置    slow = 0        # 快指针遍历数组    for fast in range(1, len(nums)):        if nums[fast] != nums[slow]:            slow += 1            nums[slow] = nums[fast]        return slow + 1# 测试nums = [1, 1, 2, 2, 3]length = removeDuplicates(nums)print(nums[:length])  # [1, 2, 3]
 
 思路：
 
@@ -48,7 +48,7 @@ def removeDuplicates(nums):    &quot;&quot;&quot;    给定排序数组，原地
 
 
 2. 滑动窗口例题：最大子数组和LeetCode 53. 最大子数组和
-def maxSubArray(nums):    &quot;&quot;&quot;    找出数组中和最大的连续子数组    &quot;&quot;&quot;    # 当前子数组和    current_sum = nums[0]    # 最大子数组和    max_sum = nums[0]        for i in range(1, len(nums)):        # 要么加入当前元素，要么重新开始        current_sum = max(nums[i], current_sum + nums[i])        max_sum = max(max_sum, current_sum)        return max_sum# 测试nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]print(maxSubArray(nums))  def maxSubArray(nums):    &quot;&quot;&quot;    找出数组中和最大的连续子数组    &quot;&quot;&quot;    # 当前子数组和    current_sum = nums[0]    # 最大子数组和    max_sum = nums[0]        for i in range(1, len(nums)):        # 要么加入当前元素，要么重新开始        current_sum = max(nums[i], current_sum + nums[i])        max_sum = max(max_sum, current_sum)        return max_sum# 测试nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]print(maxSubArray(nums))  # 6，子数组 [4,-1,2,1]
+def maxSubArray(nums):    &quot;&quot;&quot;    找出数组中和最大的连续子数组    &quot;&quot;&quot;    # 当前子数组和    current_sum = nums[0]    # 最大子数组和    max_sum = nums[0]        for i in range(1, len(nums)):        # 要么加入当前元素，要么重新开始        current_sum = max(nums[i], current_sum + nums[i])        max_sum = max(max_sum, current_sum)        return max_sum# 测试nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]print(maxSubArray(nums))  # 6，子数组 [4,-1,2,1]
 
 思路：动态规划
 
@@ -56,7 +56,7 @@ def maxSubArray(nums):    &quot;&quot;&quot;    找出数组中和最大的连�
 记录过程中的最大值
 
 
-3. 二分查找def binarySearch(nums, target):    &quot;&quot;&quot;    在有序数组中查找目标值    &quot;&quot;&quot;    left, right = 0, len(nums) - 1        while left &lt;= right:        mid = (left + right) // 2                if nums[mid] == target:            return mid        elif nums[mid] &lt; target:            left = mid + 1        else:            right = mid - 1        return -1# 测试nums = [1, 3, 5, 7, 9, 11]print(binarySearch(nums, 7))  def binarySearch(nums, target):    &quot;&quot;&quot;    在有序数组中查找目标值    &quot;&quot;&quot;    left, right = 0, len(nums) - 1        while left &lt;= right:        mid = (left + right) // 2                if nums[mid] == target:            return mid        elif nums[mid] &lt; target:            left = mid + 1        else:            right = mid - 1        return -1# 测试nums = [1, 3, 5, 7, 9, 11]print(binarySearch(nums, 7))  # 3
+3. 二分查找def binarySearch(nums, target):    &quot;&quot;&quot;    在有序数组中查找目标值    &quot;&quot;&quot;    left, right = 0, len(nums) - 1        while left &lt;= right:        mid = (left + right) // 2                if nums[mid] == target:            return mid        elif nums[mid] &lt; target:            left = mid + 1        else:            right = mid - 1        return -1# 测试nums = [1, 3, 5, 7, 9, 11]print(binarySearch(nums, 7))  # 3
 
 刷题记录
 
@@ -130,7 +130,7 @@ LeetCode 数组题单
     <content><![CDATA[前言链表是另一种基础的线性数据结构，本文总结链表相关知识点。
 
 
-链表基础链表定义class ListNode:    def __init__(self, val=0, next=None):        self.val = val        self.next = class ListNode:    def __init__(self, val=0, next=None):        self.val = val        self.next = next
+链表基础链表定义class ListNode:    def __init__(self, val=0, next=None):        self.val = val        self.next = next
 
 链表类型
 单向链表 - 每个节点指向下一个节点
@@ -168,13 +168,13 @@ O(1) *
 
 * 前提是已经找到插入&#x2F;删除位置
 常见题型1. 反转链表LeetCode 206. 反转链表
-def reverseList(head):    &quot;&quot;&quot;    反转单链表    &quot;&quot;&quot;    prev = None    curr = head        while curr:        # 保存下一个节点        next_temp = curr.next        # 反转指针        curr.next = prev        # 移动指针        prev = curr        curr = next_temp        def reverseList(head):    &quot;&quot;&quot;    反转单链表    &quot;&quot;&quot;    prev = None    curr = head        while curr:        # 保存下一个节点        next_temp = curr.next        # 反转指针        curr.next = prev        # 移动指针        prev = curr        curr = next_temp        return prev
+def reverseList(head):    &quot;&quot;&quot;    反转单链表    &quot;&quot;&quot;    prev = None    curr = head        while curr:        # 保存下一个节点        next_temp = curr.next        # 反转指针        curr.next = prev        # 移动指针        prev = curr        curr = next_temp        return prev
 
 2. 快慢指针LeetCode 141. 环形链表
-def hasCycle(head):    &quot;&quot;&quot;    判断链表是否有环    &quot;&quot;&quot;    if not head or not head.next:        return False        slow = head    fast = head.next        while slow != fast:        if not fast or not fast.next:            return False        slow = slow.next        fast = fast.next.next        return def hasCycle(head):    &quot;&quot;&quot;    判断链表是否有环    &quot;&quot;&quot;    if not head or not head.next:        return False        slow = head    fast = head.next        while slow != fast:        if not fast or not fast.next:            return False        slow = slow.next        fast = fast.next.next        return True
+def hasCycle(head):    &quot;&quot;&quot;    判断链表是否有环    &quot;&quot;&quot;    if not head or not head.next:        return False        slow = head    fast = head.next        while slow != fast:        if not fast or not fast.next:            return False        slow = slow.next        fast = fast.next.next        return True
 
 3. 合并链表LeetCode 21. 合并两个有序链表
-def mergeTwoLists(l1, l2):    &quot;&quot;&quot;    合并两个有序链表    &quot;&quot;&quot;    dummy = ListNode(0)    current = dummy        while l1 and l2:        if l1.val &lt; l2.val:            current.next = l1            l1 = l1.next        else:            current.next = l2            l2 = l2.next        current = current.next        # 连接剩余部分    current.next = l1 if l1 else l2        return dummy.def mergeTwoLists(l1, l2):    &quot;&quot;&quot;    合并两个有序链表    &quot;&quot;&quot;    dummy = ListNode(0)    current = dummy        while l1 and l2:        if l1.val &lt; l2.val:            current.next = l1            l1 = l1.next        else:            current.next = l2            l2 = l2.next        current = current.next        # 连接剩余部分    current.next = l1 if l1 else l2        return dummy.next
+def mergeTwoLists(l1, l2):    &quot;&quot;&quot;    合并两个有序链表    &quot;&quot;&quot;    dummy = ListNode(0)    current = dummy        while l1 and l2:        if l1.val &lt; l2.val:            current.next = l1            l1 = l1.next        else:            current.next = l2            l2 = l2.next        current = current.next        # 连接剩余部分    current.next = l1 if l1 else l2        return dummy.next
 
 刷题记录
 
