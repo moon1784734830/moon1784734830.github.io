@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>堆的基本操作</title>
+    <url>/2026/01/05/%E5%A0%86%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[引言堆是一种特殊的完全二叉树结构，常用于实现优先队列。在最大堆中，父节点的值总是大于或等于其子节点的值。本文将通过C语言代码实现一个最大堆
+堆的基本概念堆是一种数据结构，具有以下特性：
+
+完全二叉树：除了最后一层，其他层都是满的，且最后一层的节点都靠左排列
+堆序性：在最大堆中，任意节点的值大于或等于其子节点的值
+
+堆通常用数组来实现，其中：
+
+根节点索引: 0
+左子节点索引：2*i + 1
+右子节点索引：2*i + 2
+父节点索引： (i-1)/2
+
+代码实现下面是最大堆的C语言实现
+1. 堆的结构体定义typedef struct &#123;    int *data;      // 动态数组，数组指针    int size;       // 堆的元素个数    int capacity;   // 堆的最大容量&#125; MaxHeap;
+
+2. 交换元素void swap(int *a, int *b) &#123;    int tmp = *a;    *a = *b;    *b = tmp;&#125;
+
+3. 初始化堆MaxHeap* createHeap(int capacity) &#123;    // 初始化分配空间    MaxHeap* heap = (MaxHeap*)malloc(sizeof(MaxHeap));    heap-&gt;data = (int*)malloc(sizeof(int) * capacity);    // 堆数值初始化    heap-&gt;capacity = capacity;    heap-&gt;size = 0;    return heap;&#125;
+
+4. 向上调整（siftUp）用于插入元素后维护堆的性质。从插入的节点开始，与父节点比较，如果大于父节点则交换，直到满足堆序性
+void siftUp(MaxHeap* heap, int childIdx) &#123;    while (childIdx &gt; 0) &#123;        int parentIdx = (childIdx - 1) / 2;        if (heap-&gt;data[childIdx] &gt; heap-&gt;data[parentIdx]) &#123;            swap(&amp;heap-&gt;data[childIdx], &amp;heap-&gt;data[parentIdx]);            childIdx = parentIdx;        &#125; else &#123;            break;        &#125;    &#125;&#125;
+
+5. 向下调整（siftDown）用于删除堆顶或建堆时维护堆的性质。从指定节点开始，与子节点比较，选择最大的子节点交换，直到满足堆序性
+void siftDown(MaxHeap* heap, int parentIdx) &#123;    int size = heap-&gt;size;    while (true) &#123;        int leftChild = parentIdx * 2 + 1;        int rightChild = parentIdx * 2 + 2;        int largest = parentIdx;                if (leftChild &lt; size &amp;&amp; heap-&gt;data[leftChild] &gt; heap-&gt;data[largest]) &#123;            largest = leftChild;        &#125;        if (rightChild &lt; size &amp;&amp; heap-&gt;data[rightChild] &gt; heap-&gt;data[largest]) &#123;            largest = rightChild;        &#125;        if (largest != parentIdx) &#123;            swap(&amp;heap-&gt;data[largest], &amp;heap-&gt;data[parentIdx]);            parentIdx = largest;        &#125; else &#123;            break;        &#125;    &#125;&#125;
+
+6. 入堆操作（push）bool push(MaxHeap* heap, int val) &#123;    // 满堆的处理    if (heap-&gt;size == heap-&gt;capacity)        return false;    heap-&gt;data[heap-&gt;size] = val;    // 这里siftUp与size无关，所以两者顺序不影响    siftUp(heap, heap-&gt;size);    heap-&gt;size++;    return true;&#125;
+
+7. 出堆操作（pop）int pop(MaxHeap* heap) &#123;    // 空堆检查    if (heap-&gt;size == 0) return -1;    int root = heap-&gt;data[0];             // 用最后一个元素覆盖堆顶    heap-&gt;data[0] = heap-&gt;data[heap-&gt;size - 1];        // 必须先减size再siftDown：    // 1. siftDown依赖正确的heap-&gt;size判断子节点边界    // 2. 原末尾元素已移至堆顶，该位置不再属于堆    // 3. 避免siftDown访问到逻辑上已移除的元素    heap-&gt;size--;      siftDown(heap, 0);    return root;&#125;
+
+8. 删除任意位置的元素void deleteElement(MaxHeap* heap, int i) &#123;    if (i &lt; 0 || i &gt;= heap-&gt;size)        return;    if (i == 0) &#123;        pop(heap);        return;    &#125;    if (i == heap-&gt;size - 1) &#123;        heap-&gt;size--;        return;    &#125;    int lastVal = heap-&gt;data[heap-&gt;size - 1];    heap-&gt;size--;    int oldVal = heap-&gt;data[i];    heap-&gt;data[i] = lastVal;    if (lastVal &gt; oldVal) &#123;        siftUp(heap, i);    &#125; else &#123;        siftDown(heap, i);    &#125;&#125;
+
+9. 建堆操作MaxHeap* makeHeap(int* nums, int numsSize) &#123;    // 堆的初始化    MaxHeap* heap = createHeap(numsSize);    // 数组拷贝到堆    memcpy(heap-&gt;data, nums, numsSize * sizeof(int));    heap-&gt;size = numsSize;    // 从最后一个非叶节点开始向下调整    for (int i = (numsSize / 2) - 1; i &gt;= 0; i--) &#123;        siftDown(heap, i);    &#125;    return heap;&#125;
+
+总结通过以上代码，我们实现了一个完整的大根堆数据结构，堆的基本操作包括：
+
+插入：使用push函数，时间复杂度O(log n)
+删除堆顶：使用pop函数，时间复杂度O(log n)
+删除任意元素：使用deleteElement函数，时间复杂度O(log n)
+建堆：使用makeHeap函数，时间复杂度O(n)
+
+]]></content>
+      <categories>
+        <category>leetcode刷题笔记</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>堆</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>独居者</title>
+    <url>/2023/07/26/%E7%8B%AC%E5%B1%85%E8%80%85/</url>
+    <content><![CDATA[
+作者：陆蠡
+
+
+
+
+正文
+现在我很懊悔无意中发现了C君的秘密，一个人在孤独时的秘密。这是一种痛苦，他原先紧紧藏着，预备留给他自己的，我无意中知道，这痛苦乃交给了我。他自己还不知道这回事，实际上另外有个人在分担他的痛苦了。听说有一种眚神，专给人家作祟的。但作祟的工作要在秘密中进行。譬如一个人在单房暗室，独处的时候，这眚神便用各种威胁引诱，弄得他害病为止。万一这作祟的工作被一个闯入者发现了或道破了，这眚神便舍掉原先想害的人，转向闯入者纠缠，将祸害嫁给后者。我碰到的正是这种情形。当我发现了他深自掩藏着的痛苦，我也要替他分负的了。
+
+　　要说我为什么把这回事放在自己心上？我不知道。只好怪我自己了。要说他有什么痛苦，为什么痛苦？我也不知道。这是一个谜。痛苦是往往说不出的。好像挨了毒打，浑身疼痛，却摸不着痛处。C君是一个奇特的人！他是属于幸福的一群呢？还是属于不幸的一群呢？我不能下断语。要论断某一个人，总得自己的见解智慧比人高出一筹，方得中肯。正如景色的眺望者，从高处往下看，方见全景；若从卑处往高看，所见结果一定不对的。我对C君的观察是从卑处往高看吧，我的叙述也许是不对的。也许他不似我所猜想的，根本没有什么痛苦，这一切倒是我自己的幻觉，这也难定。总之，说他有点奇特，不算过分吧。
+　　C君是我的朋友。我们认识有许多年头了。他给我最初的印象是一个可爱的，快乐的，和蔼的青年人。他服装穿得干净，鞋帽整齐。他的头发总是剪得齐齐的，两旁梳开，披在颞颥边，中间显出一条肉路。他的脸端正，端庄的表情浮在端正的脸上，有一种没有矜伐的厚道。他有明净的眼珠，不常直视人，偶然碰到别人的眼光在他的脸上搜索的时候，总是微微一笑避开。他鼻子方正，鼻准微平。嘴也搭配得大小适宜，嘴唇略厚一点，这使他的脸减损一分秀气。他会说话，不大流利，可够表达，显然是练习出来的。他的脸颜微嫌瘦削，照他的骨架子，应当更丰满些。总之，他是一望而知的没有受过生活鞭挞的人，在一个陌生人的眼中，正如一般生活优裕的人，往往多受人们尊敬。
+　　从他对人和做事的态度看来，他是一个热情的没有自私的青年。他对朋友极诚恳，做事认真负责。他的信念极坚定，在他的眼前永远闪现着美丽的希望。他不颓沮，不懊丧，脸上心里总是浮着微笑的。他从没有对任何事失去忍耐，对任何人抱怨，责备；他忙，但颇有点闲情。有一次我见他照画报上的样子在剖剔一个水仙球茎，弄了好几个钟头，似乎没失去耐性。
+　　我们时常在一起，散步谈天。我们谈到粗俗的，猥亵的，平凡的，崇高的，他很坦白，很少隐藏，因此我也约略知道他的身世，他的思想，他的感情。一切都没超人或异乎常人的地方。他正是一个脚踏实地地为理想的工作者。
+　　但是当我发现他有一种爱好独居的性格的时候，我渐渐觉得他有点奇特。他的工作（我想对他的工作性质的说明是不必要的。世界上，哪种工作最高贵最重要，而哪一种又不重要的，无价值的，我想没有人能够品评），使他和人们亲近，同居处，同饮食。但他总是单独住一个房间。他从不肯留一个朋友在他房里住宿。他好像是洁身自爱的女子，不让别人占用她的闺闼。当有一次一位从远道来的友人来望他，那友人找不到别的宿处而又疲倦了，打算在他房里过一夜，他陪他坐到夜深，最后，站起来说道：“我房里没留过客人，我要保持这记录，我陪你上旅馆去。”友人显然有点愠色，但他还是曳着友人上旅馆去了。这事后来那友人告诉我好多次，说他是有点不近人情的。
+　　他住的房间陈设简陋，但他守住这简陋的房间，像野兽守住它的洞穴，不愿意别兽闯入。我对个人的癖爱颇能谅解。像他这样的人，也许为了工作性质的关系，也许为了读书研习的关系，不愿别人打吵他，是说得过去的。我曾有个时期和他同住在一所公共的建筑内，同处在一个屋顶下，但我们仍旧保持着各人的生活习惯。因为我们有着不同的职业。我白天出去，晚上一早就睡了。他到夜深睡，早晨起床比较迟。有时候我们是数天不见面的。
+　　一天的夜里我发现了他孑身独处的原因。愿他原谅我，我是无心的。我看取了他的秘密，却无法把它交还原主，这使我时时引以为憾。我不是好奇的。这发现属于偶然，至今我还是懊悔那一次的闯入。
+　　那是一个有月亮的夏季的晚上，夜深使一切喧嚣归于静寂。我这夜特别比平时睡得迟，正预备熄灯睡的时候，突然想起一件东西遗在C君的房里，想立刻得到它。我想他是已经睡了，为了不惊扰他，我悄声走过去，我蹑着脚步走近他的房间。他的房门没有锁，被午夜的风吹开，留着一条阔缝。我一脚跨进去，仿佛眼前一个异景怔住了我，我几乎不相信我自己的眼睛了。C君在做什么啦！他跪在自己床前的地上，头伏在臂里，好像在作祈祷。从窗口斜射进来的月光把室内照成一种淡淡的晖明，他虽则跪在暗里，我却清楚地能够辨别他额上流着汗，脸孔是严肃而神秘的，一种不胜苦楚之情。这使我想起耶稣基督在客西马尼亚园中的祈祷：“汗珠大如血点，流在地上。”一种在苦杯前踌躇的惶悚。C君也好像是在推开一个苦杯而又准备接受。他全神贯注地沉在默念中，好像在一种不可见的神前忏悔，又好像是一个为热情所燃烧的男子在冷若冰霜的女子面前恳求，一种祈求幸福或是向幸福辞谢的神情……我几乎失声喊了出来，一种神秘的力量使我噤住。我悄悄退出，站在外面，从门隙中望他继续的动作。约莫过了四五分钟，他慢慢地站起来，走向窗口，面朝月光把手徐徐举起，好像迎接从月光中降落的天使似的。随后又把手垂下，向后摸索着床架，扶在上面，脸仍不回过来，这样站着好久好久。我只能从他偶然偏过来的脸望见那上面的神秘似的似乎痉挛的表情。“他是被痛苦啮噬着，”我忽然想到，于是迅速地跑回我自己的房间，忘记了适才去他房里的目的，我熄了灯，躺在床上，辗转了好久，我细细分析他平时的见解和行为，一丝也没有异样。但渐渐我从他偶尔流露的片言只语里，好像发觉他是怀着什么痛苦。
+　　那也是和他相识不久的时候，我们已有时常谈天的习惯，我坐在他房里，我们纵谈着各种琐事，讨论着许多问题。我们谈得很有兴趣，这时他手中揉弄着一条领带。我想到一个友人，爱把领带当作裤带束在腰间，于是我说：
+　　“你知道领带还有什么别的用途么？”
+　　“哈哈哈。”
+　　“猜得着吗？”
+　　“哈哈哈。”
+　　我不耐烦地就把我的发现告诉他。说是领带当裤带是适宜的。长短阔狭都好，只是一端太宽了些。
+　　“还有一个用途。”他补充说。
+　　“什么？”
+　　“哈哈哈。”他不说下去了。
+　　但是一转想我也猜到了。那是上吊用的。当时我觉得这家伙脑筋古怪，怎会想到这上面来呢？但是他那快活的笑声，立刻把我思想的阴云打散了。
+　　我从来不曾听到他悲观的论调。但有一次一个友人颂赞“生的欢喜”“生的美丽”说：
+　　“生是多美丽啊！我便从来没想到自杀过。”
+　　“谎话！”好像听见C君的自言自语。但他立刻用快活的声音接着道：
+　　“是的。生是美丽的。”
+　　谁能够解释他身上的矛盾呢？谁能够看出他极快活的表面底下潜藏着一个痛苦的灵魂？他有希望的光明，却又有失望的暗影；他有快乐的外表，却又有忧郁的内心。他好像是一池深深的潭水，表面平静光滑，反射着美丽的阳光，底里却翻涌着涡卷的伏流。有人留心到海面么？涡流最急的地方往往表面上显得异常光滑。C君的心境便是这样子。令人费于索解了。
+　　我想从他自己的口中和别人的口中探听，他是否受过什么大刺激，譬如失恋等情事，答案都是否定的。受过良好的教育，正如有着进步思想的人，他是自由主义者，他反对宗教，反对权力，反对加在人类身上的经济的和思想的一切桎梏，那么他为什么那样苦苦地祈祷呢？简直像一个虔诚的教徒！为什么他想到“死”呢？想到人们认为罪恶而自己也认为罪恶的“自杀”呢？这一切都是谜。他是在割舍一种人性上离不开的东西呢？他是不是凭他那严刻的内省，在替他自己的信念和理想觅取一种道德上的支持？好像他发现了一种理想，而又怀疑着，又给自己的怀疑解释，而这解释又不能使自己满意，他想抓住无定形的理想，而又抓不住，因而显得痛苦呢？这一些，也许连他自己也不会明白。
+　　于是我发现他平时乐观的态度倒是一种悲哀的掩饰了。嗣后每次他和我谈话的时候，我便不禁想起他夜晚苦苦跪着的样子。“他苦苦地制造了一个希望，一个理想，来扶掖自己。”我总这样地想。他是天生的有忧郁性格的人，却人为地在忧郁的底子上抹上一层愉快的色彩。这种努力是可敬的，但是这种努力，总给我以一种不可言说的悲哀。
+]]></content>
+      <categories>
+        <category>文学</category>
+      </categories>
+      <tags>
+        <tag>散文</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LRU缓存算法</title>
+    <url>/2026/01/05/LRU%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[引言LRU（最近最少使用算法），是一种内存数据淘汰策略，使用常见是当内存不足时，需要淘汰最近最少使用的数据，以腾出空间给新的数据
+LRU缓存算法原理下面会重点介绍核心的数据结构和操作原理
+核心数据结构：双向链表 + 哈希表LRU缓存算法的核心思想是维护一个有序的数据结构，记录数据的使用顺序。当数据被访问时，将其移动到数据结构的头部，表示它是最近使用的数据。当缓存达到容量限制时，淘汰数据结构尾部的数据，即最少使用的数据
+核心操作原理1. 读取数据 (Get)  
+
+查找：在哈希表中查找该 key。  
+命中：如果找到，根据哈希表记录的指针直接访问链表节点，获取 value。  
+更新状态：因为该节点被访问了，它变成了“最新”的，所以将其从链表当前位置删除，并重新插入到链表尾部。  
+未命中：返回 -1。
+
+2. 写入&#x2F;更新数据 (Put)节点已存在：  
+
+修改该节点的 value。  
+将该节点移到链表尾部（更新时序）。
+
+节点不存在：  
+
+检查容量：如果缓存已满（size &#x3D;&#x3D; capacity），则执行“淘汰”：  
+删除链表头部（Head-&gt;next）的节点，因为它最久没被使用。  
+同步在哈希表中删除该节点的 key。
+
+
+插入新节点：创建新节点，放入链表尾部，并在哈希表中记录映射关系。
+
+C语言实现下面是LRU缓存算法的C语言实现代码
+使用uthash库实现#include &quot;uthash.h&quot;typedef struct &#123;    int key;    int val;    UT_hash_handle hh;&#125; LRUNode;typedef struct &#123;    LRUNode* cacheTable;    int capacity;&#125; LRUCache;LRUCache* lRUCacheCreate(int capacity) &#123;    LRUCache* cache = (LRUCache*)malloc(sizeof(LRUCache));    cache-&gt;cacheTable = NULL;    cache-&gt;capacity = capacity;    return cache;&#125;int lRUCacheGet(LRUCache* obj, int key) &#123;    if (!obj) return -1;    LRUNode* node = NULL;    HASH_FIND_INT(obj-&gt;cacheTable, &amp;key, node);    if (node) &#123;        HASH_DEL(obj-&gt;cacheTable, node);        HASH_ADD_INT(obj-&gt;cacheTable, key, node);        return node-&gt;val;    &#125;    return -1;&#125;void lRUCachePut(LRUCache* obj, int key, int value) &#123;    if (!obj) return;    LRUNode* node = NULL;    HASH_FIND_INT(obj-&gt;cacheTable, &amp;key, node);    if (node) &#123;        HASH_DEL(obj-&gt;cacheTable, node);        node-&gt;val = value;        HASH_ADD_INT(obj-&gt;cacheTable, key, node);    &#125; else &#123;        if (HASH_COUNT(obj-&gt;cacheTable) == obj-&gt;capacity) &#123;            LRUNode* oldestNode = obj-&gt;cacheTable;            HASH_DEL(obj-&gt;cacheTable, oldestNode);            free(oldestNode);        &#125;        LRUNode* newNode = (LRUNode*)malloc(sizeof(LRUNode));        newNode-&gt;key = key;        newNode-&gt;val = value;        HASH_ADD_INT(obj-&gt;cacheTable, key, newNode);    &#125;&#125;void lRUCacheFree(LRUCache* obj) &#123;    if (!obj) return;    LRUNode* node, *tmp;    HASH_ITER(hh, obj-&gt;cacheTable, node, tmp) &#123;        HASH_DEL(obj-&gt;cacheTable, node);        free(node);    &#125;    free(obj);&#125;
+
+手搓双向链表 + 哈希表实现// 双向链表节点typedef struct DLinkNode &#123;    int key;    int val;    struct DLinkNode* prev;    struct DLinkNode* next;&#125; DLinkNode;DLinkNode* createNode(int key, int val) &#123;    DLinkNode* node = (DLinkNode*)malloc(sizeof(DLinkNode));    node-&gt;key = key;    node-&gt;val = val;    node-&gt;prev = NULL;    node-&gt;next = NULL;    return node;&#125;// 简易哈希表（数组+链地址法）#define HASH_TABLE_SIZE 1009typedef struct HashBucket &#123;    int key;    DLinkNode* node;    struct HashBucket* next;&#125; HashBucket;static inline unsigned int hashFunc(int key) &#123;    return (unsigned int)(key &lt; 0 ? -key : key) % HASH_TABLE_SIZE;&#125;// LRU缓存对象typedef struct &#123;    DLinkNode* head;    DLinkNode* tail;    HashBucket* hashTable[HASH_TABLE_SIZE];    int capacity;    int size;&#125; LRUCache;// 辅助函数，双向链表操作// 将新节点加到双向链表尾部void addToTail(LRUCache* cache, DLinkNode* node) &#123;    node-&gt;prev = cache-&gt;tail-&gt;prev;    node-&gt;next = cache-&gt;tail;    cache-&gt;tail-&gt;prev-&gt;next = node;    cache-&gt;tail-&gt;prev = node;&#125;// 从链表中移除节点// 因为有哨兵节点，所以不需要考虑边界void removeNode(LRUCache* cache, DLinkNode* node) &#123;    node-&gt;prev-&gt;next = node-&gt;next;    node-&gt;next-&gt;prev = node-&gt;prev;&#125;// 将已有节点移到链表尾部（表示最近使用过）void moveToTail(LRUCache* cache, DLinkNode* node) &#123;    removeNode(cache, node);    addToTail(cache, node);&#125;// 删除头部节点，也就是最近没使用过，并返回keyint removeHead(LRUCache* cache) &#123;    DLinkNode* oldest = cache-&gt;head-&gt;next;    int key = oldest-&gt;key;    removeNode(cache, oldest);    free(oldest);    return key;&#125;// 哈希表操作// 查找key对应的节点指针DLinkNode* hashFind(LRUCache* cache, int key) &#123;    unsigned int idx = hashFunc(key);    HashBucket* bucket = cache-&gt;hashTable[idx];    while (bucket) &#123;        if (bucket-&gt;key == key) &#123;            return bucket-&gt;node;        &#125;        bucket = bucket-&gt;next;    &#125;    return NULL;&#125;// 插入，key-&gt;node的映射void hashInsert(LRUCache* cache, int key, DLinkNode* node) &#123;    unsigned int idx = hashFunc(key);    HashBucket* newBucket = (HashBucket*)malloc(sizeof(HashBucket));    newBucket-&gt;key = key;    newBucket-&gt;node = node;    newBucket-&gt;next = cache-&gt;hashTable[idx];    cache-&gt;hashTable[idx] = newBucket;&#125;// 删除key的映射void hashDelete(LRUCache* cache, int key) &#123;    unsigned int idx = hashFunc(key);    HashBucket** indirect = &amp;(cache-&gt;hashTable[idx]);    while (*indirect) &#123;        if ((*indirect)-&gt;key == key) &#123;            HashBucket* toFree = *indirect;            *indirect = toFree-&gt;next;            free(toFree);            return;        &#125;        // indirect本身,而不是*indirect指向的内容        indirect = &amp;((*indirect)-&gt;next);    &#125;&#125;// LRU接口实现LRUCache* lRUCacheCreate(int capacity) &#123;    LRUCache* cache = (LRUCache*)malloc(sizeof(LRUCache));    cache-&gt;capacity = capacity;    cache-&gt;size = 0;    // 初始化哨兵节点    cache-&gt;head = createNode(0, 0);    cache-&gt;tail = createNode(0, 0);    cache-&gt;head-&gt;next = cache-&gt;tail;    cache-&gt;tail-&gt;prev = cache-&gt;head;    // 初始化哈希表    memset(cache-&gt;hashTable, 0, sizeof(cache-&gt;hashTable));    return cache;&#125;int lRUCacheGet(LRUCache* obj, int key) &#123;    if (!obj) return -1;    DLinkNode* node = hashFind(obj, key);    if (node == NULL) return -1;    moveToTail(obj, node);    return node-&gt;val;&#125;void lRUCachePut(LRUCache* obj, int key, int value) &#123;    if (!obj) return;    DLinkNode* node = hashFind(obj, key);    if (node) &#123;        node-&gt;val = value;        moveToTail(obj, node);    &#125; else &#123;        if (obj-&gt;size &gt;= obj-&gt;capacity) &#123;            int oldestKey = removeHead(obj);            hashDelete(obj, oldestKey);            obj-&gt;size--;        &#125;        DLinkNode* newNode = createNode(key, value);        addToTail(obj, newNode);        hashInsert(obj, key, newNode);        obj-&gt;size++;    &#125;&#125;void lRUCacheFree(LRUCache* obj) &#123;    if (!obj) return;    DLinkNode* cur = obj-&gt;head-&gt;next;    while (cur != obj-&gt;tail) &#123;        DLinkNode* next = cur-&gt;next;        free(cur);        cur = next;    &#125;    free(obj-&gt;head);    free(obj-&gt;tail);    for (int i = 0; i &lt; HASH_TABLE_SIZE; i++) &#123;        HashBucket* bucket = obj-&gt;hashTable[i];        while (bucket) &#123;            HashBucket* next = bucket-&gt;next;            free(bucket);            bucket = next;        &#125;    &#125;    free(obj);&#125;
+代码分析结构体分析
+DLinkNode：双向链表节点，包含 key、val、prev、next。用于维护最近使用顺序（尾部为最近使用，头部为最久未用）。
+HashBucket：哈希桶中的链表节点（链地址法），每个桶是一个链表，解决哈希冲突。存储 key 和对应的 DLinkNode* 指针，避免重复存储值
+LRUCache：缓存主体，head &#x2F; tail：哨兵节点（dummy nodes），简化边界处理。hashTable：静态数组 + 链表，快速查找。capacity &#x2F; size：容量控制
+
+操作分析
+addToTail：将节点添加到链表尾部，表示最近使用
+removeNode：从链表中移除节点
+moveToTail：将已有节点移到链表尾部，更新使用顺序
+removeHead：删除链表头部节点，淘 汰最久未用数据
+hashFind &#x2F; hashInsert &#x2F; hashDelete：哈希表的基本操作
+lRUCacheGet：获取数据，更新使用顺序
+lRUCachePut：插入&#x2F;更新数据，处理容量限制
+
+亮点学习
+哨兵节点：使用 head &#x2F; tail 哨兵节点，简化链表边界操作，避免频繁判断 NULL
+链地址法哈希表：使用静态数组 + 链表解决哈希冲突，节省空间
+时间复杂度：所有操作均为 O(1)，满足 LRU 缓存的高效需求
+
+总结LRU缓存算法通过双向链表和哈希表实现高效的缓存管理，本文介绍了两种C语言实现方式：一种使用uthash库简化哈希操作，另一种手搓数据结构以深入理解底层原理
+]]></content>
+      <categories>
+        <category>leetcode刷题笔记</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>哈希表</tag>
+        <tag>链表</tag>
+        <tag>双向链表</tag>
+      </tags>
+  </entry>
+</search>
